@@ -57,6 +57,7 @@ public class SimpleNIOHTTPServer implements HTTPServerHandler {
 
     private void register(Selector selector, ServerSocketChannel serverSocketChannel) throws IOException {
         SocketChannel client = serverSocketChannel.accept();
+        System.out.println("receved request from " + client.getRemoteAddress());
         client.configureBlocking(false);
         client.register(selector, SelectionKey.OP_READ);
     }
@@ -83,7 +84,7 @@ public class SimpleNIOHTTPServer implements HTTPServerHandler {
         String method = requestLine[0];
         String path = requestLine[1];
 
-        if (method.equals("GET")) {
+        if (method.equals("GET")){
             handleGetRequest(client, path);
         } else if (method.equals("POST")) {
             handlePostRequest(client, requestLines);
