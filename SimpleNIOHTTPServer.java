@@ -32,7 +32,8 @@ public class SimpleNIOHTTPServer implements HTTPServerHandler {
     }
 
     public void run() {
-        System.out.println("Server is running on " + bindAddress + ":" + bindPort);
+        System.out.println("Server started");
+        System.out.println("Running on " + bindAddress + ":" + bindPort);
         while (true) {
             try {
                 selector.select();
