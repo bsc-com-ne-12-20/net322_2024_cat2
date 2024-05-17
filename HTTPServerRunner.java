@@ -13,7 +13,7 @@ import java.io.*;
 public class HTTPServerRunner {
     public static void main(String[] args) {
         if (args.length != 2) {
-            System.out.println("Usage: java HTTPServerRunner <bindAddress> <bindPort>");
+            System.out.println("Run with arguments address and port number");
             return;
         }
 
@@ -24,7 +24,7 @@ public class HTTPServerRunner {
             SimpleNIOHTTPServer server = new SimpleNIOHTTPServer(bindAddress, bindPort);
             server.run();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Web server failed " + e);
         }
     }
 }

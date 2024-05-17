@@ -50,7 +50,7 @@ public class SimpleNIOHTTPServer implements HTTPServerHandler {
                     iter.remove();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("Web Server failed " + e);
             }
         }
     }
@@ -62,7 +62,7 @@ public class SimpleNIOHTTPServer implements HTTPServerHandler {
         client.register(selector, SelectionKey.OP_READ);
     }
 
-    @Override
+    //@Override
     public void handle(SelectionKey key) throws IOException {
         SocketChannel client = (SocketChannel) key.channel();
         ByteBuffer buffer = ByteBuffer.allocate(1024);
@@ -107,7 +107,7 @@ public class SimpleNIOHTTPServer implements HTTPServerHandler {
             String response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n" + new String(Files.readAllBytes(Paths.get(resourcePath)));
             client.write(ByteBuffer.wrap(response.getBytes()));
         } else {
-            String response = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n<html><body><h1>404 - Not Found</h1></body></html>";
+            String response = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n<html><body><h1>404 - Not Found/ Palibe</h1></body></html>";
             client.write(ByteBuffer.wrap(response.getBytes()));
         }
         client.close();
@@ -136,6 +136,7 @@ public class SimpleNIOHTTPServer implements HTTPServerHandler {
             String[] keyValue = param.split("=");
             if (keyValue[0].equals("username")) {
                 username = keyValue[1];
+                //belongs to inncoent waluza
             } else if (keyValue[0].equals("email")) {
                 email = keyValue[1];
             }
@@ -156,7 +157,7 @@ public class SimpleNIOHTTPServer implements HTTPServerHandler {
             SimpleNIOHTTPServer server = new SimpleNIOHTTPServer("localhost", 8085);
             server.run();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Web Server failed: " + e);
         }
     }
 }
